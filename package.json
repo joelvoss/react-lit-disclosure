@@ -5,8 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joelvoss/react-lit.git",
-    "directory": "packages/disclosure"
+    "url": "git+https://github.com/joelvoss/react-lit-disclosure.git"
   },
   "type": "module",
   "source": "src/index.js",
