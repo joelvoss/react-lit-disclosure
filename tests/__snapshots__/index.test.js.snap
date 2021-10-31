@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Disclosure /> should render proper HTML 1`] = `"<button aria-controls=\\"panel--4\\" aria-expanded=\\"false\\" data-state=\\"collapsed\\">Button</button><div hidden=\\"\\" data-state=\\"collapsed\\" id=\\"panel--4\\" tabindex=\\"-1\\">Panel</div>"`;
