@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { render, userEvent } from './test-utils';
-import { axe } from 'jest-axe';
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from '../src/index';
 
@@ -17,13 +16,11 @@ describe('<Disclosure />', () => {
 	it('should not have ARIA violations', async () => {
 		let { container, getByRole } = render(<Comp />);
 
-		let results = await axe(container);
-		expect(results).toHaveNoViolations();
+		await expect(container).toHaveNoAxeViolations();
 
 		userEvent.click(getByRole('button'));
 
-		let newResults = await axe(container);
-		expect(newResults).toHaveNoViolations();
+		await expect(container).toHaveNoAxeViolations();
 	});
 
 	it('should render proper HTML', () => {
