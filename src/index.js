@@ -1,11 +1,4 @@
-import {
-	forwardRef,
-	useCallback,
-	useContext,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import * as React from 'react';
 import {
 	useStableCallback,
 	createNamedContext,
@@ -48,8 +41,8 @@ const DisclosureContext = createNamedContext('DisclosureContext', {});
  */
 export function useDisclosureContext() {
 	/** @type {DisclosureContextValue} */
-	let { open, panelId, disclosureId } = useContext(DisclosureContext);
-	return useMemo(
+	let { open, panelId, disclosureId } = React.useContext(DisclosureContext);
+	return React.useMemo(
 		() => ({
 			id: disclosureId,
 			panelId,
@@ -74,23 +67,23 @@ export const Disclosure = ({
 	open: openProp,
 	...props
 }) => {
-	const { current: isControlled } = useRef(openProp != null);
+	const { current: isControlled } = React.useRef(openProp != null);
 
 	const id =
 		useId(props.id != null ? String(props.id) : undefined) || 'disclosure';
 	const panelId = makeId('panel', id);
 
-	const [open, setOpen] = useState(isControlled ? openProp : defaultOpen);
+	const [open, setOpen] = React.useState(isControlled ? openProp : defaultOpen);
 	const stableOnChange = useStableCallback(onChange);
 
-	const onSelect = useCallback(() => {
+	const onSelect = React.useCallback(() => {
 		stableOnChange();
 		if (!isControlled) {
 			setOpen(open => !open);
 		}
 	}, [stableOnChange, isControlled]);
 
-	const context = useMemo(
+	const context = React.useMemo(
 		() => ({
 			disclosureId: id,
 			onSelect,
@@ -119,7 +112,7 @@ export const Disclosure = ({
  * DisclosureButton renders the trigger button a user clicks to interact with
  * a disclosure.
  */
-export const DisclosureButton = forwardRef(
+export const DisclosureButton = React.forwardRef(
 	(
 		{
 			as: Comp = 'button',
@@ -132,8 +125,8 @@ export const DisclosureButton = forwardRef(
 		parentRef,
 	) => {
 		/** @type {DisclosureContextValue} */
-		const { onSelect, open, panelId } = useContext(DisclosureContext);
-		const ownRef = useRef(null);
+		const { onSelect, open, panelId } = React.useContext(DisclosureContext);
+		const ownRef = React.useRef(null);
 
 		const ref = useComposeRefs(parentRef, ownRef);
 
@@ -168,10 +161,10 @@ export const DisclosureButton = forwardRef(
  * DisclosurePanel renders the collapsible panel in which inner content for an
  * disclosure item is rendered.
  */
-export const DisclosurePanel = forwardRef(
+export const DisclosurePanel = React.forwardRef(
 	({ as: Comp = 'div', children, ...props }, parentRef) => {
 		/** @type {DisclosureContextValue} */
-		const { panelId, open } = useContext(DisclosureContext);
+		const { panelId, open } = React.useContext(DisclosureContext);
 
 		return (
 			<Comp
