@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '../../src/index';
 
 export function Example() {
-	const [value, setValue] = useState('');
-	const [open, setOpen] = useState(false);
+	const [value, setValue] = React.useState('');
+	const [open, setOpen] = React.useState(false);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (value.toLowerCase().trim() === 'open') {
 			setOpen(true);
 		} else if (value.toLowerCase().trim() === 'close') {

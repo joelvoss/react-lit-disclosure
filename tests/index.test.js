@@ -18,52 +18,52 @@ describe('<Disclosure />', () => {
 
 		await expect(container).toHaveNoAxeViolations();
 
-		userEvent.click(getByRole('button'));
+		await userEvent.click(getByRole('button'));
 
 		await expect(container).toHaveNoAxeViolations();
 	});
 
-	it('should render proper HTML', () => {
+	it('should render proper HTML', async () => {
 		const { container } = render(<Comp />);
 		expect(container.innerHTML).toMatchSnapshot();
 	});
 
-	it('should hide the panel content by default', () => {
+	it('should hide the panel content by default', async () => {
 		const { getByText } = render(<Comp />);
 		expect(getByText(/panel/i)).not.toBeVisible();
 	});
 
-	it(`should show the panel when defaultOpen is 'true'`, () => {
+	it(`should show the panel when defaultOpen is 'true'`, async () => {
 		const { getByText } = render(<Comp defaultOpen />);
 		expect(getByText(/panel/i)).toBeVisible();
 	});
 
-	it(`should hide the panel when defaultOpen is 'false'`, () => {
+	it(`should hide the panel when defaultOpen is 'false'`, async () => {
 		const { getByText } = render(<Comp defaultOpen={false} />);
 		expect(getByText(/panel/i)).not.toBeVisible();
 	});
 
-	it(`should show the panel when open is 'true'`, () => {
+	it(`should show the panel when open is 'true'`, async () => {
 		const { getByText } = render(<Comp open />);
 		expect(getByText(/panel/i)).toBeVisible();
 	});
 
-	it(`should hide the panel when open is 'false'`, () => {
+	it(`should hide the panel when open is 'false'`, async () => {
 		const { getByText } = render(<Comp open={false} />);
 		expect(getByText(/panel/i)).not.toBeVisible();
 	});
 
-	it(`should accept a custom id`, () => {
+	it(`should accept a custom id`, async () => {
 		const { getByText } = render(<Comp id="custom-id" />);
 		expect(getByText(/panel/i)).toHaveAttribute('id', 'panel--custom-id');
 	});
 
-	it(`should remove the panel from the navigation flow`, () => {
+	it(`should remove the panel from the navigation flow`, async () => {
 		const { getByText } = render(<Comp />);
 		expect(getByText(/panel/i)).toHaveAttribute('tabindex', '-1');
 	});
 
-	it('should set the correct aria attributes when collapsed', () => {
+	it('should set the correct aria attributes when collapsed', async () => {
 		const { getByText } = render(<Comp />);
 		let button = getByText(/button/i);
 		let panel = getByText(/panel/i);
@@ -75,7 +75,7 @@ describe('<Disclosure />', () => {
 		expect(panel).toHaveAttribute('hidden');
 	});
 
-	it('should set the correct aria attributes when open', () => {
+	it('should set the correct aria attributes when open', async () => {
 		const { getByText } = render(<Comp open />);
 		let button = getByText(/button/i);
 		let panel = getByText(/panel/i);
@@ -87,33 +87,33 @@ describe('<Disclosure />', () => {
 		expect(panel).not.toHaveAttribute('hidden');
 	});
 
-	it(`should toggle on click`, () => {
+	it(`should toggle on click`, async () => {
 		const { getByText } = render(<Comp />);
 		expect(getByText(/panel/i)).not.toBeVisible();
 
-		userEvent.click(getByText(/button/i));
+		await userEvent.click(getByText(/button/i));
 
 		expect(getByText(/panel/i)).toBeVisible();
 	});
-	
-	it(`should call 'onChange' on click`, () => {
+
+	it(`should call 'onChange' on click`, async () => {
 		let callback = jest.fn();
 		const { getByText } = render(<Comp onChange={callback} />);
 
-		userEvent.click(getByText(/button/i));
+		await userEvent.click(getByText(/button/i));
 		expect(callback).toHaveBeenCalledTimes(1);
-		userEvent.click(getByText(/button/i));
+		await userEvent.click(getByText(/button/i));
 		expect(callback).toHaveBeenCalledTimes(2);
 	});
 
-	it(`should toggle on spacebar`, () => {
+	it(`should toggle on spacebar`, async () => {
 		const { getByText } = render(<Comp />);
 
 		getByText(/button/i).focus();
 
-		userEvent.keyboard(' ');
+		await userEvent.keyboard(' ');
 		expect(getByText(/panel/i)).toBeVisible();
-		userEvent.keyboard(' ');
+		await userEvent.keyboard(' ');
 		expect(getByText(/panel/i)).not.toBeVisible();
 	});
 });

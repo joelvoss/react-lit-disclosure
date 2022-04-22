@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '../../src/index';
 
 export function Example() {
